@@ -17,7 +17,7 @@ function App() {
 
   return (
     <MainLayout>
-    <BrowserRouter>
+    <BrowserRouter> 
       <Routes>
         <Route path="/" element={<HomeCompany/>}/>
       </Routes>

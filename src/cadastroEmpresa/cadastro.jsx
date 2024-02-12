@@ -1,12 +1,18 @@
-import * as React from 'react';
-import { TextField, Typography, Stack, Box } from '@mui/material';
-import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
-import StepLabel from '@mui/material/StepLabel';
-import Button from '@mui/material/Button';
-import StepCards from '../StepCard/stepCadastro';
+import * as React from "react";
+import { TextField, Typography, Stack, Box } from "@mui/material";
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepLabel from "@mui/material/StepLabel";
+import Button from "@mui/material/Button";
+import StepCards from "../StepCard/stepCadastro";
+import InputFields from "../componente/Inputs/InputFields";
+import { MyNewStap } from "../componente/staps/mystap";
 
-const steps = ['Select campaign settings', 'Create an ad group', 'Create an ad'];
+const steps = [
+  "Select campaign settings",
+  "Create an ad group",
+  "Create an ad",
+];
 
 export default function RegisterCompany() {
   const [activeStep, setActiveStep] = React.useState(0);
@@ -34,11 +40,10 @@ export default function RegisterCompany() {
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
+  
 
   const handleSkip = () => {
     if (!isStepOptional(activeStep)) {
-      // You probably want to guard against something like this,
-      // it should never occur unless someone's actively trying to break something.
       throw new Error("You can't skip a step that isn't optional.");
     }
 
@@ -55,16 +60,17 @@ export default function RegisterCompany() {
   };
 
   return (
-    <Stack sx={{ 
-      width: '90%',
-      height: 'auto',
-      bgcolor: 'gray',
-      '@media (max-width: 800px)': {
-        width: '98%',
-      
-      }
-      
-     }}>
+    <Stack
+      sx={{
+        width: "90%",
+        height: "auto",
+        
+        position: "relative",
+        "@media (max-width: 800px)": {
+          width: "98%",
+        },
+      }}
+    >
       <Stepper activeStep={activeStep}>
         {steps.map((label, index) => {
           const stepProps = {};
@@ -84,20 +90,55 @@ export default function RegisterCompany() {
           );
         })}
       </Stepper>
+      {activeStep === 0 && (
+        <Stack
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+          }}
+        >
+          <StepCards />
+        </Stack>
+      )}
+      {activeStep === 1 && (
+        <Stack
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            position: "relative",
+          }}
+        >
+          <InputFields />
+        </Stack>
+      )}
+      {activeStep === 2 && (
+        <Stack
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            position: "relative",
+          }}
+        >
+          <MyNewStap />
+        </Stack>
+      )}
       {activeStep === steps.length ? (
         <React.Fragment>
-          <Typography sx={{ mt: 2, mb: 1 }}>
-           <StepCards/>
-          </Typography>
-          <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-            <Box sx={{ flex: '1 1 auto' }} />
+          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+            <Box sx={{ flex: "1 1 auto" }} />
             <Button onClick={handleReset}>Reset</Button>
           </Box>
         </React.Fragment>
       ) : (
         <React.Fragment>
           <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography>
-          <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
             <Button
               color="inherit"
               disabled={activeStep === 0}
@@ -106,15 +147,14 @@ export default function RegisterCompany() {
             >
               Back
             </Button>
-            <Box sx={{ flex: '1 1 auto' }} />
+            <Box sx={{ flex: "1 1 auto" }} />
             {isStepOptional(activeStep) && (
               <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
                 Skip
               </Button>
             )}
-
             <Button onClick={handleNext}>
-              {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+              {activeStep === steps.length - 1 ? "Finish" : "Next"}
             </Button>
           </Box>
         </React.Fragment>
