@@ -6,7 +6,7 @@ import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import StepCards from "../StepCard/stepCadastro";
 import InputFields from "../componente/Inputs/InputFields";
-import { MyNewStap } from "../componente/staps/mystap";
+import MyNewStap from "../componente/staps/mystap";
 
 const steps = [
   "Select campaign settings",
@@ -125,7 +125,7 @@ export default function RegisterCompany() {
             position: "relative",
           }}
         >
-          <MyNewStap />
+          <MyNewStap/>
         </Stack>
       )}
       {activeStep === steps.length ? (

@@ -1,30 +1,43 @@
-
 import React, { useState } from "react";
-import './styles/styleFilds.css';
+import "./styles/styleFilds.css";
 import { TextField, Typography, Stack, Box, Button } from "@mui/material";
 
 const InputFields = () => {
-  const [tipoProduto, setTipoProduto] = useState("");
   const [cnpj, setCnpj] = useState("");
-  const [endereco, setEndereco] = useState("");
-  const [funcionamento, setFuncionamento] = useState("");
-  const [tipoProdutoError, setTipoProdutoError] = useState("");
   const [cnpjError, setCnpjError] = useState("");
+
+  const [endereco, setEndereco] = useState("");
   const [enderecoError, setEnderecoError] = useState("");
+
+  const [horaAbertura, setHoraAbertura] = useState("");
+  const [horaAberturaError, setHoraAberturaError] = useState("");
+
+  const [fechamento, setFechamento] = useState("");
   const [funcionamentoError, setFuncionamentoError] = useState("");
 
   const validarFormularioClient = () => {
     let isValid = true;
 
-    if (tipoProduto.trim() === "") {
-      setTipoProdutoError("Campo tipo de Produto obrigatório");
+    if (horaAbertura.trim() === "") {
+      setHoraAberturaError("Campo de horário de abertura é obrigatório");
       isValid = false;
     } else {
-      setTipoProdutoError("");
+      setHoraAberturaError("");
+    }
+    
+
+    if (fechamento.trim() === "") {
+      setFuncionamentoError("Campo de horário de fechamento é obrigatório");
+      isValid = false;
+    } else {
+      setFuncionamentoError("");
     }
 
     if (cnpj.trim() === "") {
       setCnpjError("Campo CNPJ da empresa é obrigatório");
+      isValid = false;
+    } else if (!validarCnpj(cnpj.trim())) {
+      setCnpjError(" Informe um CNPJ válido");
       isValid = false;
     } else {
       setCnpjError("");
@@ -37,16 +50,60 @@ const InputFields = () => {
       setEnderecoError("");
     }
 
-    if (funcionamento.trim() === "") {
-      setFuncionamentoError("Indique os horários em que a empresa está aberta.");
-      isValid = false;
-    } else {
-      setFuncionamentoError("");
-    }
-
     return isValid;
   };
 
+
+  const handleEnderecoChange = (e) => {
+    const input = e.target.value;
+    setEndereco(input);
+    if (input.trim() === "") {
+      setEnderecoError("Campo de endereço é obrigatório");
+    } else if (!/\d/.test(input) && !/^\d{5}-?\d{3}$/.test(input)) {
+      setEnderecoError("Por favor, inclua o número do endereço ou um CEP válido.");
+    } else {
+      setEnderecoError("");
+    }
+  };
+ 
+  // Função para validar a entrada de hora de fechamento
+  const handleFechamentoChange = (e) => {
+    const input = e.target.value;
+    // Verifica se o input contém apenas números e o caractere ":"
+    if (/^[0-9:]*$/.test(input) || input === "") {
+      setFechamento(input);
+      // Verifica se a hora de fechamento é igual à hora de abertura
+      if (input === horaAbertura) {
+        setFuncionamentoError(
+          "A hora de fechamento deve ser diferente da hora de abertura"
+        );
+        return;
+      } else {
+        setFuncionamentoError("");
+      }
+    } else {
+      setFuncionamentoError(
+        "Por favor, informe uma horário de fechamento válido"
+      );
+    }
+  };
+
+  // Função para validar entrada de hora de abertura
+  const handleHoraAberturaChange = (e) => {
+    const input = e.target.value;
+    // Verifica se o input contém apenas números e o caractere ":"
+    if (/^[0-9:]*$/.test(input) || input === "") {
+      setHoraAbertura(input);
+      setHoraAberturaError("");
+    } else {
+      setHoraAberturaError("Por favor, informe um horário válido");
+    }
+  };
+
+  const validarCnpj = (cnpj) => {
+    const cnpjRegex = /^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/;
+    return cnpjRegex.test(cnpj);
+  };
   return (
     <Stack
       sx={{
@@ -111,21 +168,21 @@ const InputFields = () => {
               sx={{
                 width: "100%",
                 fontSize: "1.3rem",
-                borderColor: tipoProdutoError ? "red" : null,
+                borderColor:
+                  horaAberturaError || funcionamentoError ? "red" : null,
               }}
               type="text"
-              label="Tipo de Produto/Serviço"
-              placeholder="Tipo de Produto/Serviço"
-              id="nomeCompleto"
-              InputLabelProps={{ shrink: true }}
+              label="Horário de Abertura"
+              id="Abertura"
+              placeholder="Horário de Abertura (HH:MM)"
               variant="outlined"
               size="small"
-              value={tipoProduto}
-              onChange={(e) => setTipoProduto(e.target.value)}
-              error={!!tipoProdutoError}
+              value={horaAbertura}
+              onChange={handleHoraAberturaChange}
+              error={!!horaAberturaError}
             />
-            <Typography sx={{ fontSize: "1.3rem", color: "red" }} class="error">
-              {tipoProdutoError}
+            <Typography sx={{ fontSize: "1.3rem", color: "red" }} className="error">
+              {horaAberturaError}
             </Typography>
           </Box>
 
@@ -143,7 +200,6 @@ const InputFields = () => {
               label="CNPJ"
               id="celular"
               placeholder="Número de registro da empresa"
-              InputLabelProps={{ shrink: true }}
               variant="outlined"
               size="small"
               value={cnpj}
@@ -153,7 +209,7 @@ const InputFields = () => {
             <Typography
               sx={{ fontSize: "1.3rem", color: "red" }}
               id="celularErro"
-              class="error"
+              className="error"
             >
               {cnpjError}
             </Typography>
@@ -186,24 +242,24 @@ const InputFields = () => {
             <TextField
               sx={{
                 width: "100%",
-                fontSize: "1.3rem",
+                marginBottom: "1.5rem",
+                display: "flex",
+                textAlign: "center",
+                fontSize: "1.6rem", // Ajuste o tamanho da fonte conforme necessário
                 borderColor: enderecoError ? "red" : null,
               }}
               type="text"
               label="Endereço da empresa"
-              id="Endereco"
-              placeholder="Endereço da empresa"
-              InputLabelProps={{ shrink: true }}
               variant="outlined"
               size="small"
               value={endereco}
-              onChange={(e) => setEndereco(e.target.value)}
+              onChange={handleEnderecoChange}
               error={!!enderecoError}
             />
             <Typography
               sx={{ fontSize: "1.3rem", color: "red" }}
               id="enderecoError"
-              class="error"
+              className="error"
             >
               {enderecoError}
             </Typography>
@@ -223,24 +279,20 @@ const InputFields = () => {
               sx={{
                 width: "100%",
                 fontSize: "1.3rem",
-                borderColor: funcionamentoError ? "red" : null,
+                borderColor:
+                  horaAberturaError || funcionamentoError ? "red" : null,
               }}
               type="text"
-              label="Horário de Funcionamento"
-              id="Funcionamento"
-              placeholder="Horário de Funcionamento"
-              InputLabelProps={{ shrink: true }}
+              label="Horário de Fechamento"
+              id="Fechamento"
+              placeholder="Horário de Fechamento (HH:MM)"
               variant="outlined"
               size="small"
-              value={funcionamento}
-              onChange={(e) => setFuncionamento(e.target.value)}
+              value={fechamento}
+              onChange={handleFechamentoChange}
               error={!!funcionamentoError}
             />
-            <Typography
-              sx={{ fontSize: "1.3rem", color: "red" }}
-              id="funcionamentoError"
-              class="error"
-            >
+            <Typography sx={{ fontSize: "1.3rem", color: "red" }} className="error">
               {funcionamentoError}
             </Typography>
           </Box>
