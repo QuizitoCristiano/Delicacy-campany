@@ -626,10 +626,7 @@ header {
   font-size: 12px;
 }
 
-#formaPagamento {
-  width: 100%;
-  /* background: #3cb815; */
-}
+
 .wrapperInputModal {
   display: flex;
   align-items: flex-start;

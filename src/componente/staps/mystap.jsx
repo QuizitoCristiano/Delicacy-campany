@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './styles/indexStyle.css';
 import { Button, Box, Stack, Typography, TextField } from "@mui/material";
 
 const MyNewStap = () => {
@@ -258,6 +259,7 @@ const MyNewStap = () => {
             </Typography>
           </Box>
 
+
           {modalAberto && (
             <Box
               sx={{
@@ -277,7 +279,10 @@ const MyNewStap = () => {
                 },
               }}
             >
+         
               <select id="formaPagamento" onChange={handleFormaPagamentoChange}>
+               
+
                 <option value="">Forma de Pagamento</option>
                 <option value="pix">Pix</option>
                 <option value="Cartão de Crédito">Cartão de crédito</option>
@@ -285,6 +290,7 @@ const MyNewStap = () => {
                 <option value="Pagamento Na Entrega">
                   Pagamento na Entrega
                 </option>
+               
               </select>
               <Typography id="formaPagamentoError" className="error">
                 {formasDePagamentoError}
@@ -348,7 +354,7 @@ const MyNewStap = () => {
               },
             }}
           >
-            <textarea
+            <textarea className="myTexteArea"
               value={descricaoEmpresa}
               onChange={handleDescricaoChange}
               rows={5}

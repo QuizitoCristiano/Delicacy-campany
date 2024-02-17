@@ -1,46 +1,41 @@
-import React, {useState } from 'react'
-import './styles/homeStyles.css'
-import { TextField, Typography, Stack, Box } from '@mui/material'
-import RegisterCompany from '../cadastroEmpresa/cadastro'
-
-
+import React, { useState } from "react";
+import "./styles/homeStyles.css";
+import { TextField, Typography, Stack, Box } from "@mui/material";
+import RegisterCompany from "../cadastroEmpresa/cadastro";
+import { Login } from "../signin/signin";
+import PasswordRecovery from "../recovery/recoverySenha";
 
 export const HomeCompany = () => {
-
   return (
     <>
       <Stack
         sx={{
-          minHeight: '100vh',
-          width: '100%',
-          gap: '2rem',
-          bgcolor: '#fff',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexDirection: 'colunm',
+          minHeight: "100vh",
+          width: "100%",
+          gap: "2rem",
+          bgcolor: "#fff",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "colunm",
 
-
-          '@media only screen and (max-width: 800px)': {
-            width: '100%',
-            marginTop: '4rem',
-            position: 'relative',
+          "@media only screen and (max-width: 800px)": {
+            width: "100%",
+            marginTop: "4rem",
+            position: "relative",
           },
         }}
       >
+        <RegisterCompany />
 
+        <Login />
 
-        <RegisterCompany/>
+        <PasswordRecovery />
 
         <Stack>
-          <button
-            className="logoutButton"
-          >
-            Sair
-          </button>
+          <button className="logoutButton">Sair</button>
         </Stack>
-
       </Stack>
     </>
-  )
-}
+  );
+};
