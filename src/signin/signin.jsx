@@ -1,6 +1,12 @@
 import React, { useState } from "react";
-import { TextField, Typography, Stack, Box, Button, Link } from "@mui/material";
+import { TextField, Typography, Stack, Box, Button} from "@mui/material";
+import { Link } from 'react-router-dom';
+import CloseIcon from "@mui/icons-material/Close";
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase/firebaseConfig";
 
+
+// import RegisterCompany from "../cadastroEmpresa/cadastro";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -8,6 +14,25 @@ export const Login = () => {
 
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
+
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth);
+
+  function handleSigniIn(e) {
+    e.preventDefault();
+    createUserWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        //...
+      })
+      .catch((error) => {
+        // An error happened.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        //...
+      });
+  }
 
   const validarFormularioClient = () => {
     let isValid = true;
@@ -52,7 +77,9 @@ export const Login = () => {
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "column",
+        height: "100vh",
         width: "100%",
+        bgcolor: "#fff",
       }}
     >
       <Box
@@ -63,13 +90,32 @@ export const Login = () => {
           padding: "20px",
           justifyContent: "center",
           alignItems: "center",
+          borderRadius: "1rem",
           boxShadow: "1px 2px 11px 4px rgb(14 55 54 / 25%)",
           flexDirection: "column",
           "@media (max-width: 750px)": {
-            width: "100%",
+            width: "96%"
           },
         }}
       >
+        <Box
+          sx={{
+            color: "var(--orange-color)",
+            display: "flex",
+            justifyContent: "end",
+            alignItems: "center",
+            fontSize: "1.8rem",
+            width: "100%",
+          }}
+        >
+          <CloseIcon
+            sx={{
+              fontSize: "2rem",
+              fontWeight: 800,
+            }}
+          />
+        </Box>
+
         <Stack
           sx={{
             paddingBottom: "1.8rem",
@@ -191,31 +237,39 @@ export const Login = () => {
             }}
             onClick={(e) => {
               if (validarFormularioClient()) {
-                // Se o formulário for válido, faça algo aqui
+                handleSigniIn(e);
               } else {
-                // Se houver erros, você pode lidar com isso aqui
+                return false;
               }
             }}
           >
             Entrar
           </Button>
-          <Typography>Esqueceu sua senha?</Typography>
-         <Link sx={{
-            color: "#f75f1d",
-            textDecoration: "none",
-            cursor: "pointer",
-            ":hover": {
-              color: "var(--light-orange-color)",
+          <Link to="PasswordRecovery"><Typography>Esqueceu sua senha?</Typography></Link>
+        
+          <Link
+            sx={{
+              color: "#f75f1d",
               textDecoration: "none",
-            },
-            
-             
-         }}><Typography sx={{
-                color: ' #f75f1d',
-                fontWeight: '600',
-                fontSize: '1.3rem'
-               
-         }}>Cadastrar-se</Typography></Link>
+              cursor: "pointer",
+              ":hover": {
+                color: "var(--light-orange-color)",
+                textDecoration: "none",
+              },
+            }}
+
+            to="/RegisterCompany"
+          >
+            <Typography
+              sx={{
+                color: " #f75f1d",
+                fontWeight: "600",
+                fontSize: "1.3rem",
+              }}
+            >
+              Cadastrar-se
+            </Typography>
+          </Link>
         </Box>
       </Box>
     </Stack>

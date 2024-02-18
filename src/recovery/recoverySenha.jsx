@@ -35,21 +35,25 @@ const PasswordRecovery = () => {
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "column",
+        height: "100vh",
         width: "100%",
+        backgroundColor: "var(--bg-color)",
       }}
     >
       <Box
         sx={{
           width: "659px",
           gap: "2.6rem",
+          borderRadius: "1rem",
           display: "flex",
           padding: "20px",
           justifyContent: "center",
           alignItems: "center",
           boxShadow: "1px 2px 11px 4px rgb(14 55 54 / 25%)",
           flexDirection: "column",
+    
           "@media (max-width: 750px)": {
-            width: "100%",
+            width: "96%",
           },
         }}
       >

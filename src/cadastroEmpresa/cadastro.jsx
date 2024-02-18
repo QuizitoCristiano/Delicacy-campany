@@ -62,11 +62,20 @@ export default function RegisterCompany() {
   return (
     <Stack
       sx={{
-        width: "90%",
-        height: "auto",
+        width: "100%",
+        padding: '110px 3% 60px',
+        height: "100vh",
+        display: "flex",
+        alignItems: 'space-between',
+        justifyContent: "center",
+       
+        
+        bgcolor: '#fff',
+    
         
         position: "relative",
         "@media (max-width: 800px)": {
+          padding: '110px 1% 60px',
           width: "98%",
         },
       }}
