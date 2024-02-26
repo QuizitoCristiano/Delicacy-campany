@@ -31,7 +31,9 @@
 /* Modal */
 
 
-
+.header-button {
+  border: none !important; /* Remover a borda */
+}
 
 
 body {
@@ -98,12 +100,12 @@ header {
 .logo h4 {
   color: var(--orange-color);
   font-weight: 800;
-  font-size: 1.6rem;
+  font-size: 1.3rem;
  
 }
 
 .bxs-basket {
-  font-size: 2.6rem !important;
+  font-size: 1.6rem !important;
   color: var(--orange-color);
 
 }

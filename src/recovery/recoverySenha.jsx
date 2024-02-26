@@ -78,11 +78,11 @@ const PasswordRecovery = () => {
           sx={{
             paddingBottom: "1.8rem",
             color: "var(--green-color)",
-            fontSize: "1.8rem",
+            fontSize: "1.3rem",
             gap: "0.9rem",
             width: "100%",
             "@media (max-width: 550px)": {
-               fontSize: "1.5rem",
+               fontSize: "1rem",
               },
           }}
         >

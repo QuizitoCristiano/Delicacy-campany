@@ -1,19 +1,25 @@
-import React, { useState } from "react";
 import "./styles/myModal.css";
 import { Container, Button, Box, Stack, TextField } from "@mui/material";
 
-const StepCards = () => {
-  const [name, setName] = useState("");
-  const [nameError, setNameError] = useState("");
-
-  const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState("");
-
-  const [password, setPassword] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-
-  const [telefone, setTelefone] = useState("");
-  const [telefoneError, setTelefoneError] = useState("");
+const StepCards = ({
+  name,
+  setName,
+  nameError,
+  setNameError,
+  email,
+  setEmail,
+  emailError,
+  setEmailError,
+  password,
+  setPassword,
+  passwordError,
+  setPasswordError,
+  telefone,
+  setTelefone,
+  telefoneError,
+  setTelefoneError,
+}) => {
+ 
 
   const isValidEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

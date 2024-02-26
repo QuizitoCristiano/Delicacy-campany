@@ -1,5 +1,5 @@
-import * as React from "react";
-import { TextField, Typography, Stack, Box } from "@mui/material";
+import React, { useState } from "react";
+import { Typography, Stack, Box } from "@mui/material";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
@@ -9,14 +9,67 @@ import InputFields from "../componente/Inputs/InputFields";
 import MyNewStap from "../componente/staps/mystap";
 
 const steps = [
-  "Select campaign settings",
-  "Create an ad group",
-  "Create an ad",
+  "Nome da Empresa",
+  "Tempo",
+ 
+
 ];
 
 export default function RegisterCompany() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
+
+
+
+  // const [controlStep, setControlStep] = useState({
+  //   name: "",
+  //   nameError: "",
+  //   email: "",
+  //   emailError: "",
+  //   password: "",
+  //   passwordError: "",
+  //   telefone: "",
+  //   telefoneError: ""
+  // });
+
+
+
+  const [name, setName] = useState("");
+  const [nameError, setNameError] = useState("");
+
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+
+  const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
+  const [telefone, setTelefone] = useState("");
+  const [telefoneError, setTelefoneError] = useState("");
+
+
+  const [cnpj, setCnpj] = useState("");
+  const [cnpjError, setCnpjError] = useState("");
+
+  const [endereco, setEndereco] = useState("");
+  const [enderecoError, setEnderecoError] = useState("");
+
+  const [horaAbertura, setHoraAbertura] = useState("");
+  const [horaAberturaError, setHoraAberturaError] = useState("");
+
+  const [fechamento, setFechamento] = useState("");
+  const [funcionamentoError, setFuncionamentoError] = useState("");
+
+  const [fotoLogotipo, setFotoLogotipo] = useState("");
+  const [fotoLogotipoError, setFotoLogotipoError] = useState("");
+
+  const [formasDePagamento, setFormasDePagamento] = useState("");
+  const [formasDePagamentoError, setFormasDePagamentoError] = useState("");
+
+  const [descricaoEmpresa, setDescricaoEmpresa] = useState("");
+  const [descricaoEmpresaError, setDescricaoEmpresaError] = useState("");
+
+  const [logisticaDeVendas, setLogisticaDeVendas] = useState("");
+  const [logisticaDeVendasError, setLogisticaDeVendasError] = useState("");
 
   const isStepOptional = (step) => {
     return step === 1;
@@ -40,7 +93,6 @@ export default function RegisterCompany() {
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
-  
 
   const handleSkip = () => {
     if (!isStepOptional(activeStep)) {
@@ -63,19 +115,17 @@ export default function RegisterCompany() {
     <Stack
       sx={{
         width: "100%",
-        padding: '110px 3% 60px',
+        padding: "110px 3% 60px",
         height: "100vh",
         display: "flex",
-        alignItems: 'space-between',
+        alignItems: "space-between",
         justifyContent: "center",
-       
-        
-        bgcolor: '#fff',
-    
-        
+
+        bgcolor: "#fff",
+
         position: "relative",
         "@media (max-width: 800px)": {
-          padding: '110px 1% 60px',
+          padding: "110px 1% 60px",
           width: "98%",
         },
       }}
@@ -86,7 +136,7 @@ export default function RegisterCompany() {
           const labelProps = {};
           if (isStepOptional(index)) {
             labelProps.optional = (
-              <Typography variant="caption">Optional</Typography>
+              <Typography variant="caption"></Typography>
             );
           }
           if (isStepSkipped(index)) {
@@ -108,7 +158,24 @@ export default function RegisterCompany() {
             flexDirection: "column",
           }}
         >
-          <StepCards />
+          <StepCards
+            name={name}
+            setName={setName}
+            nameError={nameError}
+            setNameError={setNameError}
+            email={email}
+            setEmail={setEmail}
+            emailError={emailError}
+            setEmailError={setEmailError}
+            password={password}
+            setPassword={setPassword}
+            passwordError={passwordError}
+            setPasswordError={setPasswordError}
+            telefone={telefone}
+            setTelefone={setTelefone}
+            telefoneError={telefoneError}
+            setTelefoneError={setTelefoneError}
+          />
         </Stack>
       )}
       {activeStep === 1 && (
@@ -121,7 +188,24 @@ export default function RegisterCompany() {
             position: "relative",
           }}
         >
-          <InputFields />
+          <InputFields
+            cnpj={cnpj}
+            setCnpj={setCnpj}
+            cnpjError={cnpjError}
+            setCnpjError={setCnpjError}
+            endereco={endereco}
+            setEndereco={setEndereco}
+            enderecoError={enderecoError}
+            setEnderecoError={setEnderecoError}
+            horaAbertura={horaAbertura}
+            setHoraAbertura={setHoraAbertura}
+            horaAberturaError={horaAberturaError}
+            setHoraAberturaError={setHoraAberturaError}
+            fechamento={fechamento}
+            setFechamento={setFechamento}
+            funcionamentoError={funcionamentoError}
+            setFuncionamentoError={setFuncionamentoError}
+          />
         </Stack>
       )}
       {activeStep === 2 && (
@@ -134,7 +218,24 @@ export default function RegisterCompany() {
             position: "relative",
           }}
         >
-          <MyNewStap/>
+          <MyNewStap
+            fotoLogotipo={fotoLogotipo}
+            setFotoLogotipo={setFotoLogotipo}
+            fotoLogotipoError={fotoLogotipoError}
+            setFotoLogotipoError={setFotoLogotipoError}
+            formasDePagamento={formasDePagamento}
+            setFormasDePagamento={setFormasDePagamento}
+            formasDePagamentoError={formasDePagamentoError}
+            setFormasDePagamentoError={setFormasDePagamentoError}
+            descricaoEmpresa={descricaoEmpresa}
+            setDescricaoEmpresa={setDescricaoEmpresa}
+            descricaoEmpresaError={descricaoEmpresaError}
+            setDescricaoEmpresaError={setDescricaoEmpresaError}
+            logisticaDeVendas={logisticaDeVendas}
+            setLogisticaDeVendas={setLogisticaDeVendas}
+            logisticaDeVendasError={logisticaDeVendasError}
+            setLogisticaDeVendasError={setLogisticaDeVendasError}
+          />
         </Stack>
       )}
       {activeStep === steps.length ? (
@@ -146,26 +247,78 @@ export default function RegisterCompany() {
         </React.Fragment>
       ) : (
         <React.Fragment>
-          <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Button
-              color="inherit"
-              disabled={activeStep === 0}
-              onClick={handleBack}
-              sx={{ mr: 1 }}
-            >
-              Back
-            </Button>
-            <Box sx={{ flex: "1 1 auto" }} />
-            {isStepOptional(activeStep) && (
-              <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                Skip
+          <Stack
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+              position: "relative",
+              gap: "2rem",
+            }}
+          >
+            <Typography sx={{ mt: 2,
+               mb: 1,
+               textAlign: "center",
+               fontWeight: "bold",
+               fontSize: "1.2rem",
+               color: "var(--green-color)",
+               fontFamily: "Poppins",
+                }}>
+              {activeStep === 0 && `Primeiro Pasinho ${activeStep + 1}`}
+              {activeStep === 1 &&
+                `Você está indo bem, só mais um Passo ${activeStep + 1}`}
+              {activeStep === 2 && `Agora você está quase lá ${activeStep + 1}`}
+            </Typography>
+            <Box sx={{ display: "flex", flexDirection: "row", pt: 2, gap: 5 }}>
+              <Button
+                color="inherit"
+                disabled={activeStep === 0}
+                onClick={handleBack}
+                sx={{
+                  display: "inline-block",
+                  padding: "10px 20px",
+                  background: "var(--light-orange-color)",
+                  borderRadius: "5px",
+                  color: "#fff",
+                  fontSize: "1rem",
+                  letterSpacing: "1px",
+                  fontWeight: 600,
+                  transition: "all 0.45s ease",
+                  border: "none",
+                  outline: "none",
+                }}
+              >
+                Voltar
               </Button>
-            )}
-            <Button onClick={handleNext}>
-              {activeStep === steps.length - 1 ? "Finish" : "Next"}
-            </Button>
-          </Box>
+
+              <Button
+                sx={{
+                  display: "inline-block",
+                  padding: "12px 28px",
+                  backgroundColor: "var(--green-color)",
+                  borderRadius: "5px",
+                  color: "var(--bg-color)",
+                  fontSize: "1rem",
+                  letterSpacing: "1px",
+                  fontWeight: 600,
+                  transition: "all 0.45s ease",
+                  border: "none",
+                  outline: "none",
+                  ":hover": {
+                    background: "var(--light-orange-color)",
+                    border: "none",
+                    outline: "none",
+                    color: "var(--bg-color)",
+                    transition: "all 0.45s ease",
+                  },
+                }}
+                onClick={handleNext}
+              >
+                {activeStep === steps.length - 1 ? "Finalizar" : "Proximo"}
+              </Button>
+            </Box>
+          </Stack>
         </React.Fragment>
       )}
     </Stack>

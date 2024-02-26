@@ -1,19 +1,25 @@
-import React, { useState } from "react";
 import "./styles/styleFilds.css";
 import { TextField, Typography, Stack, Box, Button } from "@mui/material";
 
-const InputFields = () => {
-  const [cnpj, setCnpj] = useState("");
-  const [cnpjError, setCnpjError] = useState("");
-
-  const [endereco, setEndereco] = useState("");
-  const [enderecoError, setEnderecoError] = useState("");
-
-  const [horaAbertura, setHoraAbertura] = useState("");
-  const [horaAberturaError, setHoraAberturaError] = useState("");
-
-  const [fechamento, setFechamento] = useState("");
-  const [funcionamentoError, setFuncionamentoError] = useState("");
+const InputFields = ({
+  cnpj,
+  setCnpj,
+  cnpjError,
+  setCnpjError,
+  endereco,
+  setEndereco,
+  enderecoError,
+  setEnderecoError,
+  horaAbertura,
+  setHoraAbertura,
+  horaAberturaError,
+  setHoraAberturaError,
+  fechamento,
+  setFechamento,
+  funcionamentoError,
+  setFuncionamentoError,
+}) => {
+  
 
   const validarFormularioClient = () => {
     let isValid = true;

@@ -6,7 +6,6 @@ import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase/firebaseConfig";
 
 
-// import RegisterCompany from "../cadastroEmpresa/cadastro";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -238,6 +237,7 @@ export const Login = () => {
             onClick={(e) => {
               if (validarFormularioClient()) {
                 handleSigniIn(e);
+             
               } else {
                 return false;
               }
@@ -269,7 +269,10 @@ export const Login = () => {
             >
               Cadastrar-se
             </Typography>
+
           </Link>
+
+          <Link to="MyCardCampany">bt</Link>
         </Box>
       </Box>
     </Stack>

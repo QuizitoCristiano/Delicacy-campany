@@ -1,22 +1,27 @@
 import React, { useState } from "react";
-import './styles/indexStyle.css';
+import "./styles/indexStyle.css";
 import { Button, Box, Stack, Typography, TextField } from "@mui/material";
 
-const MyNewStap = () => {
-  const [fotoLogotipo, setFotoLogotipo] = useState("");
-  const [fotoLogotipoError, setFotoLogotipoError] = useState("");
-
-  const [formasDePagamento, setFormasDePagamento] = useState("");
-  const [formasDePagamentoError, setFormasDePagamentoError] = useState("");
-
-  const [descricaoEmpresa, setDescricaoEmpresa] = useState("");
-  const [descricaoEmpresaError, setDescricaoEmpresaError] = useState("");
-  const [descricaoModalAberto, setDescricaoModalAberto] = useState(false);
-
-  const [logisticaDeVendas, setLogisticaDeVendas] = useState("");
-  const [logisticaDeVendasError, setLogisticaDeVendasError] = useState("");
-
+const MyNewStap = ({
+  fotoLogotipo,
+  setFotoLogotipo,
+  fotoLogotipoError,
+  setFotoLogotipoError,
+  formasDePagamento,
+  setFormasDePagamento,
+  formasDePagamentoError,
+  setFormasDePagamentoError,
+  descricaoEmpresa,
+  setDescricaoEmpresa,
+  descricaoEmpresaError,
+  setDescricaoEmpresaError,
+  logisticaDeVendas,
+  setLogisticaDeVendas,
+  logisticaDeVendasError,
+  setLogisticaDeVendasError,
+}) => {
   const [modalAberto, setModalAberto] = useState(false);
+  const [descricaoModalAberto, setDescricaoModalAberto] = useState(false);
 
   const handleOpenModal = (e) => {
     e.preventDefault();
@@ -147,6 +152,8 @@ const MyNewStap = () => {
               alignItems: "flex-start",
               flexDirection: "column",
             }}
+
+           
           >
             <TextField
               sx={{
@@ -167,7 +174,7 @@ const MyNewStap = () => {
               }}
             />
             <Typography
-              sx={{ fontSize: "1.3rem", color: "red" }}
+              sx={{ fontSize: "0.2rem", color: "red" }}
               className="error"
             >
               {fotoLogotipoError}
@@ -259,7 +266,6 @@ const MyNewStap = () => {
             </Typography>
           </Box>
 
-
           {modalAberto && (
             <Box
               sx={{
@@ -279,10 +285,7 @@ const MyNewStap = () => {
                 },
               }}
             >
-         
               <select id="formaPagamento" onChange={handleFormaPagamentoChange}>
-               
-
                 <option value="">Forma de Pagamento</option>
                 <option value="pix">Pix</option>
                 <option value="Cartão de Crédito">Cartão de crédito</option>
@@ -290,7 +293,6 @@ const MyNewStap = () => {
                 <option value="Pagamento Na Entrega">
                   Pagamento na Entrega
                 </option>
-               
               </select>
               <Typography id="formaPagamentoError" className="error">
                 {formasDePagamentoError}
@@ -354,7 +356,8 @@ const MyNewStap = () => {
               },
             }}
           >
-            <textarea className="myTexteArea"
+            <textarea
+              className="myTexteArea"
               value={descricaoEmpresa}
               onChange={handleDescricaoChange}
               rows={5}

@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { Login } from "../signin/signin";
 import RegisterCompany from "../cadastroEmpresa/cadastro";
 import PasswordRecovery from "../recovery/recoverySenha";
+import MyCardCampany from "../cardCampany/campany";
 
 
 export const AppRouters = () => {
@@ -14,6 +15,8 @@ export const AppRouters = () => {
           <Route path="/" element={<Login/>}/>
           <Route path="/RegisterCompany" element={<RegisterCompany/>}/>
           <Route path="/PasswordRecovery" element={<PasswordRecovery/>}/>
+          <Route path="/MyCardCampany" element={<MyCardCampany/>}/>
+
         </Routes>
       </BrowserRouter>
     )
