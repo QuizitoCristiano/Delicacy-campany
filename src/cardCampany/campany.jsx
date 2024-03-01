@@ -268,7 +268,7 @@ const MyCardCampany = () => {
             alignItems: "center",
             position: "relative",
             color: "ActiveCaption",
-            height: "auto",
+           
             gap: "0.9rem",
             width: "100%",
             height: " 50%",
@@ -460,7 +460,7 @@ const MyCardCampany = () => {
             alignItems: "center",
             position: "relative",
             color: "ActiveCaption",
-            height: "auto",
+           
             gap: "0.9rem",
             width: "100%",
             height: " 45%",
@@ -685,7 +685,7 @@ const MyCardCampany = () => {
           <Stack
             sx={{
               display: "flex",
-              borderRadius: "2px",
+              
               borderRadius: "5px",
               position: "relative",
               flexDirection: "column",

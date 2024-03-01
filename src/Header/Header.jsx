@@ -1,256 +1,131 @@
-import * as React from "react";
+import React, { useRef, useState } from "react";
+import { Link, useNavigate, useLocation  } from "react-router-dom";
 import "./header.css";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
+import DehazeIcon from "@mui/icons-material/Dehaze";
+import CloseIcon from "@mui/icons-material/Close";
+import { Box, Stack, Typography } from "@mui/material";
 
-import LocalMallIcon from "@mui/icons-material/LocalMall";
-import { TextField, Typography, Stack, Box } from "@mui/material";
-import { useState } from "react";
 
-const pages = ["Home", "Produtos", "SobreNos", "Clientes"];
+const myLink = [
+    {
+        label: 'Home',
+        link: '/',
+
+
+    },
+
+    {
+        label: 'Cadastro',
+        link: '/cadastro',
+    },
+
+    {
+        label: 'QuemSomos',
+        link: '/quem_Somos',
+    },
+
+    {
+        label: 'Contato',
+        link: '/contato',
+    },
+
+]
+
+
 
 export const MyHeader = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = useState(null);
-  const [avatarFile, setAvatarFile] = useState(null);
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
+    const location = useLocation();
+    console.log(location);
+  const [abreMeno, setAbreMeno] = useState(false);
+
+  const abrirMenu = () => {
+    setAbreMeno(true);
   };
 
-  const handleAvatarChange = (event) => {
-    const file = event.target.files[0];
-    // Lógica para salvar a imagem ou atualizar o avatar no estado, por exemplo.
-    console.log("Imagem selecionada:", file);
-  };
-
-  const handleSaveButtonClick = async () => {};
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
+  const fecharMenu = () => {
+    setAbreMeno(false);
   };
 
   return (
-    <AppBar
-      sx={{
-        width: "100%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        background: "#fff",
-        boxShadow: "0 8px 11px rgb(14 55 54 / 25%)",
-        transition: "0.5s",
-      }}
-    >
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Box>
-            <a href="" className="logo">
-              <LocalMallIcon className="bx bxs-basket" />
-              <i className="bx bxs-basket">Delicacy</i>
-            </a>
-          </Box>
-
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{
-                    color: "#1a2428",
-                    display: "flex",
-                    fontSize: "10px",
-                    alignContent: "center",
-                    justifyItems: "center",
-                    flexDirection: "row",
-                    gap: "1.3rem",
-                    fontWeight: 800,
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      display: "flex",
-                      fontSize: "1.2rem",
-                      gap: "1.3rem",
-                      alignContent: "center",
-                      justifyItems: "center",
-                      flexDirection: "row",
-                      fontWeight: 800,
-                    }}
-                  >
-                    {page}
-                  </Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-  {pages.map((page) => (
-    <Button
-      key={page}
-      onClick={handleCloseNavMenu}
-      className="header-button"
-      sx={{
-        my: 2,
-        color: "#1a2428",
-        display: "flex",
-        border: 'none', 
-        outline: 'none',
-        textDecoration: 'none',
-        alignContent: "center",
-        justifyItems: "center",
-        flexDirection: "row",
-        gap: "1.3rem",
-        fontWeight: 800,
-        fontFamily: "Poppins, sans-serif",
-      }}
-    >
-      <Typography
+    <>
+      <Stack
         sx={{
-          display: "flex",
-          gap: "1.2rem",
-          alignContent: "center",
-          justifyItems: "center",
+          background: "#b3d6e4",
+          fontFamily: '"Almarai","Helvetica","Arial",sans-serif',
+          width: "100%",
+          height: "80px",
+          position: " fe",
+          padding:' 20px 50px',
+          top: "0",
+          left: " 0",
+          right: "0",
           flexDirection: "row",
-          color: 'red',
-          fontWeight: 800,
-          fontSize: "1rem", // Alteração da fonte aqui
-          textDecoration: 'transparent', // Decoração do texto transparente
+          display: "flex",
+          background: "var(--bg-color)",
+          boxShadow: " 0 8px 11px rgb(14 55 54 / 15%)",
+          transition: " 0.5s",
+          alignItems: "center",
+          justifyContent: " space-between",
+          zIndex: "1000",
         }}
       >
-        {page}
-      </Typography>
-    </Button>
-  ))}
-</Box>
+        <Stack
+          sx={{
+            background: "red",
+          }}
+        >
+          <p>Logo My Fite</p>
+        </Stack>
 
-          <Stack
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              flexDirection: "row",
-              gap: "1.9rem",
-            }}
-          >
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                <MenuItem
-                  sx={{
-                    height: "200px",
-                    width: "190px",
-                    justifyContent: "space-around",
-                    flexDirection: "column",
-                    alignItems: "center",
-                  }}
-                >
-                  <label htmlFor="avatarInput">
-                    <Typography textAlign="center">Adicionar imagem</Typography>
-                  </label>
-                  <input
-                    id="avatarInput"
-                    type="file"
-                    accept="image/*"
-                    style={{ display: "none" }}
-                    onChange={handleAvatarChange}
-                  />
+        <Stack className="myNaveLink">
+            
+          <div className="logo-links">
+           {
+            myLink.map((item, index) => {
+                const isLink = item.link === location.pathname
+              return (
+                <Link style={{
+                    color: isLink ? '#fff' : 'black',
+                    borderRadius: '5px',
+                    padding: isLink && '4px',
+                    boxShadow: isLink && ' rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px',
 
-                  <Button
-                    onClick={handleSaveButtonClick}
-                    sx={{
-                      border: "none",
-                      outline: "none",
-                      color: "var(--bg-color)",
-                      background: "var(--green-color)",
-                      padding: "8px 20px",
-                      borderRadius: "8px",
-                      fontSize: "16px",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Salvar
-                  </Button>
-                </MenuItem>
-              </Menu>
-            </Box>
+                    transition: 'all .3s',
+                    background: isLink && '#3cb815' 
+                    
+                }} to={item.link} key={index}>
+                  <p>{item.label}</p>
+                </Link>
+              );
+            })
+           }
+            
+          </div>
+          <div className="logo-icons">
+            <span onClick={abrirMenu}>
+              {abreMeno ? <CloseIcon /> : <DehazeIcon />}
+            </span>
+          </div>
 
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open carinho">
-                <IconButton
-                  onClick={handleOpenNavMenu}
-                  sx={{
-                    visibility: "hidden",
-                    "@media (max-width: 910px)": {
-                      visibility: "visible",
-                    },
-                  }}
-                >
-                  <MenuIcon
-                    sx={{
-                      fontSize: "1.6rem",
-                      color: "black",
-                      fontWeight: "600",
-                    }}
-                  />
-                </IconButton>
-              </Tooltip>
-            </Box>
-          </Stack>
-        </Toolbar>
-      </Container>
-    </AppBar>
+          {abreMeno && (
+            <div className="menu-celular">
+              <div className="icone-fechar">
+                <span onClick={fecharMenu}>
+                  Fechar
+                  <CloseIcon />
+                </span>
+              </div>
+              <div className="itens-menu-celular">
+                <p>Home</p>
+                <p>Compras</p>
+                <p>Quem Somos</p>
+                <p>Contato</p>
+              </div>
+            </div>
+          )}
+        </Stack>
+      </Stack>
+    </>
   );
 };

@@ -4,12 +4,14 @@ import { Login } from "../signin/signin";
 import RegisterCompany from "../cadastroEmpresa/cadastro";
 import PasswordRecovery from "../recovery/recoverySenha";
 import MyCardCampany from "../cardCampany/campany";
+import { MainLayout } from "../layouts/mylayouts";
 
 
 export const AppRouters = () => {
 
     return (
-      <BrowserRouter>
+      <MainLayout>
+   
         <Routes>
        
           <Route path="/" element={<Login/>}/>
@@ -18,6 +20,6 @@ export const AppRouters = () => {
           <Route path="/MyCardCampany" element={<MyCardCampany/>}/>
 
         </Routes>
-      </BrowserRouter>
+      </MainLayout>
     )
 }
