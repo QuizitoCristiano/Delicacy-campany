@@ -3,7 +3,8 @@ import { Link, useNavigate, useLocation  } from "react-router-dom";
 import "./header.css";
 import DehazeIcon from "@mui/icons-material/Dehaze";
 import CloseIcon from "@mui/icons-material/Close";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography, colors } from "@mui/material";
+import StoreIcon from '@mui/icons-material/Store';
 
 
 const myLink = [
@@ -51,11 +52,11 @@ export const MyHeader = () => {
     <>
       <Stack
         sx={{
-          background: "#b3d6e4",
+          // background: "#b3d6e4",
           fontFamily: '"Almarai","Helvetica","Arial",sans-serif',
           width: "100%",
           height: "80px",
-          position: " fe",
+          position: 'fixed',
           padding:' 20px 50px',
           top: "0",
           left: " 0",
@@ -63,19 +64,39 @@ export const MyHeader = () => {
           flexDirection: "row",
           display: "flex",
           background: "var(--bg-color)",
-          boxShadow: " 0 8px 11px rgb(14 55 54 / 15%)",
+          boxShadow: " 0 8px 11px rgb(14 55 54 / 35%)",
           transition: " 0.5s",
           alignItems: "center",
           justifyContent: " space-between",
-          zIndex: "1000",
+          zIndex: "2000",
         }}
       >
         <Stack
           sx={{
-            background: "red",
+           
+            display: 'flex',
+            alignItems: "center",
+            flexDirection: 'row',
+            justifyContent: "center",
+           
+      
+         
+            height: "100%",
+            width: "40%",
+           
           }}
         >
-          <p>Logo My Fite</p>
+          <StoreIcon sx={{
+            color: "var(--light-orange-color)",
+            fontSize: "2.5rem",
+          }}/>
+          <Typography 
+            
+           
+         >
+            <Link className="logoDelicacy" to="/">Delicacy</Link>
+          </Typography>
+           
         </Stack>
 
         <Stack className="myNaveLink">
@@ -117,10 +138,26 @@ export const MyHeader = () => {
                 </span>
               </div>
               <div className="itens-menu-celular">
-                <p>Home</p>
-                <p>Compras</p>
-                <p>Quem Somos</p>
-                <p>Contato</p>
+              {
+            myLink.map((item, index) => {
+                const isLink = item.link === location.pathname
+              return (
+                <Link style={{
+                    color: isLink ? '#fff' : 'black',
+                    borderRadius: '5px',
+                    padding: isLink && '4px',
+                    boxShadow: isLink && ' rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px',
+
+
+                    transition: 'all .3s',
+                    background: isLink && '#3cb815' 
+                    
+                }} to={item.link} key={index}>
+                  <p>{item.label}</p>
+                </Link>
+              );
+            })
+           }
               </div>
             </div>
           )}

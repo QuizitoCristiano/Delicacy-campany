@@ -150,6 +150,14 @@ const MyCardCampany = () => {
         width: "100%",
         height: "100vh",
         padding: "130px 3% 20px",
+
+        "@media (max-width: 800px)": {
+          flexDirection: "column",
+          gap: "10px",
+          width: "100%",
+          height: "100vh"
+          // padding: "130px 1% 20px",
+        },
       }}
     >
       <Stack
@@ -164,6 +172,14 @@ const MyCardCampany = () => {
           gap: "0.9rem",
           width: "40%",
           height: "100vh",
+
+          "@media (max-width: 800px)": {
+           
+            gap: "10px",
+            width: "100%",
+           
+            // padding: "130px 1% 20px",
+          },
         }}
       >
         <Stack
@@ -179,7 +195,7 @@ const MyCardCampany = () => {
 
             width: "100%",
             "@media screen and (max-width:790px)": {
-              flexDirection: "column",
+              flexDirection: "row",
               width: "100%",
             },
           }}
@@ -654,8 +670,12 @@ const MyCardCampany = () => {
           alignItems: "center",
           boxShadow: "1px 2px 11px 4px rgb(14 55 54 / 25%)",
           flexDirection: "column",
-          "@media (max-width: 750px)": {
+          "@media (max-width: 800px)": {
+            
+            
             width: "100%",
+          
+            // padding: "130px 1% 20px",
           },
         }}
       >
@@ -668,6 +688,7 @@ const MyCardCampany = () => {
             gap: "0.9rem",
             width: "100%",
             height: "100%",
+           
           }}
         >
           <Box

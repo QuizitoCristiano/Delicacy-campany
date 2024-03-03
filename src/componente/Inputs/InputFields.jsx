@@ -1,108 +1,157 @@
 import "./styles/styleFilds.css";
+
+import React from "react";
 import { TextField, Typography, Stack, Box, Button } from "@mui/material";
 
-const InputFields = ({
-  cnpj,
-  setCnpj,
-  cnpjError,
-  setCnpjError,
-  endereco,
-  setEndereco,
-  enderecoError,
-  setEnderecoError,
-  horaAbertura,
-  setHoraAbertura,
-  horaAberturaError,
-  setHoraAberturaError,
-  fechamento,
-  setFechamento,
-  funcionamentoError,
-  setFuncionamentoError,
-}) => {
-  
+const InputFields = ({ controlSteFields, setControlSteFields }) => {
+  const {
+    cnpj,
+    cnpjError,
+    endereco,
+    enderecoError,
+    horaAbertura,
+    horaAberturaError,
+    fechamento,
+    funcionamentoError,
+  } = controlSteFields;
+
+  const buttonStyles = {
+    display: "inline-block",
+    padding: "12px 28px",
+    backgroundColor: "var(--green-color)",
+    borderRadius: "5px",
+    color: "var(--bg-color)",
+    fontSize: "1rem",
+    letterSpacing: "1px",
+    fontWeight: 600,
+    transition: "all 0.45s ease",
+    border: "none",
+    outline: "none",
+    ":hover": {
+      background: "var(--light-orange-color)",
+      border: "none",
+      outline: "none",
+      color: "var(--bg-color)",
+      transition: "all 0.45s ease",
+    },
+  };
 
   const validarFormularioClient = () => {
     let isValid = true;
 
     if (horaAbertura.trim() === "") {
-      setHoraAberturaError("Campo de horário de abertura é obrigatório");
+      setControlSteFields((prevState) => ({
+        ...prevState,
+        horaAberturaError: "Campo de horário de abertura é obrigatório",
+      }));
       isValid = false;
     } else {
-      setHoraAberturaError("");
+      setControlSteFields((prevState) => ({
+        ...prevState,
+        horaAberturaError: "",
+      }));
     }
-    
 
     if (fechamento.trim() === "") {
-      setFuncionamentoError("Campo de horário de fechamento é obrigatório");
+      setControlSteFields((prevState) => ({
+        ...prevState,
+        funcionamentoError: "Campo de horário de fechamento é obrigatório",
+      }));
       isValid = false;
     } else {
-      setFuncionamentoError("");
+      setControlSteFields((prevState) => ({
+        ...prevState,
+        funcionamentoError: "",
+      }));
     }
 
     if (cnpj.trim() === "") {
-      setCnpjError("Campo CNPJ da empresa é obrigatório");
+      setControlSteFields((prevState) => ({
+        ...prevState,
+        cnpjError: "Campo CNPJ da empresa é obrigatório",
+      }));
       isValid = false;
     } else if (!validarCnpj(cnpj.trim())) {
-      setCnpjError(" Informe um CNPJ válido");
+      setControlSteFields((prevState) => ({
+        ...prevState,
+        cnpjError: "Informe um CNPJ válido",
+      }));
       isValid = false;
     } else {
-      setCnpjError("");
+      setControlSteFields((prevState) => ({ ...prevState, cnpjError: "" }));
     }
 
     if (endereco.trim() === "") {
-      setEnderecoError("Campo Localização  da empresa é obrigatório");
+      setControlSteFields((prevState) => ({
+        ...prevState,
+        enderecoError: "Campo Localização  da empresa é obrigatório",
+      }));
       isValid = false;
     } else {
-      setEnderecoError("");
+      setControlSteFields((prevState) => ({ ...prevState, enderecoError: "" }));
     }
 
     return isValid;
   };
 
-
   const handleEnderecoChange = (e) => {
     const input = e.target.value;
-    setEndereco(input);
+    setControlSteFields((prevState) => ({ ...prevState, endereco: input }));
     if (input.trim() === "") {
-      setEnderecoError("Campo de endereço é obrigatório");
+      setControlSteFields((prevState) => ({
+        ...prevState,
+        enderecoError: "Campo de endereço é obrigatório",
+      }));
     } else if (!/\d/.test(input) && !/^\d{5}-?\d{3}$/.test(input)) {
-      setEnderecoError("Por favor, inclua o número do endereço ou um CEP válido.");
+      setControlSteFields((prevState) => ({
+        ...prevState,
+        enderecoError:
+          "Por favor, inclua o número do endereço ou um CEP válido.",
+      }));
     } else {
-      setEnderecoError("");
-    }
-  };
- 
-  // Função para validar a entrada de hora de fechamento
-  const handleFechamentoChange = (e) => {
-    const input = e.target.value;
-    // Verifica se o input contém apenas números e o caractere ":"
-    if (/^[0-9:]*$/.test(input) || input === "") {
-      setFechamento(input);
-      // Verifica se a hora de fechamento é igual à hora de abertura
-      if (input === horaAbertura) {
-        setFuncionamentoError(
-          "A hora de fechamento deve ser diferente da hora de abertura"
-        );
-        return;
-      } else {
-        setFuncionamentoError("");
-      }
-    } else {
-      setFuncionamentoError(
-        "Por favor, informe uma horário de fechamento válido"
-      );
+      setControlSteFields((prevState) => ({ ...prevState, enderecoError: "" }));
     }
   };
 
-  // Função para validar entrada de hora de abertura
+  const handleFechamentoChange = (e) => {
+    const input = e.target.value;
+    if (/^[0-9:]*$/.test(input) || input === "") {
+      setControlSteFields((prevState) => ({ ...prevState, fechamento: input }));
+      if (input === horaAbertura) {
+        setControlSteFields((prevState) => ({
+          ...prevState,
+          funcionamentoError:
+            "A hora de fechamento deve ser diferente da hora de abertura",
+        }));
+        return;
+      } else {
+        setControlSteFields((prevState) => ({
+          ...prevState,
+          funcionamentoError: "",
+        }));
+      }
+    } else {
+      setControlSteFields((prevState) => ({
+        ...prevState,
+        funcionamentoError:
+          "Por favor, informe uma horário de fechamento válido",
+      }));
+    }
+  };
+
   const handleHoraAberturaChange = (e) => {
     const input = e.target.value;
-    // Verifica se o input contém apenas números e o caractere ":"
     if (/^[0-9:]*$/.test(input) || input === "") {
-      setHoraAbertura(input);
-      setHoraAberturaError("");
+      setControlSteFields((prevState) => ({
+        ...prevState,
+        horaAbertura: input,
+        horaAberturaError: "",
+      }));
     } else {
-      setHoraAberturaError("Por favor, informe um horário válido");
+      setControlSteFields((prevState) => ({
+        ...prevState,
+        horaAberturaError: "Por favor, informe um horário válido",
+      }));
     }
   };
 
@@ -110,6 +159,7 @@ const InputFields = ({
     const cnpjRegex = /^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/;
     return cnpjRegex.test(cnpj);
   };
+
   return (
     <Stack
       sx={{
@@ -130,9 +180,7 @@ const InputFields = ({
           alignItems: "center",
           boxShadow: "1px 2px 11px 4px rgb(14 55 54 / 25%)",
           flexDirection: "column",
-          "@media (max-width: 750px)": {
-            width: "100%",
-          },
+          "@media (max-width: 750px)": { width: "100%" },
         }}
       >
         <Stack
@@ -151,7 +199,6 @@ const InputFields = ({
           sx={{
             width: "100%",
             display: "grid",
-
             gridTemplateColumns: "repeat(2, 1fr)",
             gridGap: "10px",
             "@media (max-width: 550px)": {
@@ -187,7 +234,10 @@ const InputFields = ({
               onChange={handleHoraAberturaChange}
               error={!!horaAberturaError}
             />
-            <Typography sx={{ fontSize: "1.3rem", color: "red" }} className="error">
+            <Typography
+              sx={{ fontSize: "1.3rem", color: "red" }}
+              className="error"
+            >
               {horaAberturaError}
             </Typography>
           </Box>
@@ -209,7 +259,12 @@ const InputFields = ({
               variant="outlined"
               size="small"
               value={cnpj}
-              onChange={(e) => setCnpj(e.target.value)}
+              onChange={(e) =>
+                setControlSteFields((prevState) => ({
+                  ...prevState,
+                  cnpj: e.target.value,
+                }))
+              }
               error={!!cnpjError}
             />
             <Typography
@@ -226,7 +281,6 @@ const InputFields = ({
           sx={{
             width: "100%",
             display: "grid",
-
             gridTemplateColumns: "repeat(2, 1fr)",
             gridGap: "10px",
             "@media (max-width: 550px)": {
@@ -251,7 +305,7 @@ const InputFields = ({
                 marginBottom: "1.5rem",
                 display: "flex",
                 textAlign: "center",
-                fontSize: "1.6rem", // Ajuste o tamanho da fonte conforme necessário
+                fontSize: "1.6rem",
                 borderColor: enderecoError ? "red" : null,
               }}
               type="text"
@@ -298,41 +352,16 @@ const InputFields = ({
               onChange={handleFechamentoChange}
               error={!!funcionamentoError}
             />
-            <Typography sx={{ fontSize: "1.3rem", color: "red" }} className="error">
+            <Typography
+              sx={{ fontSize: "1.3rem", color: "red" }}
+              className="error"
+            >
               {funcionamentoError}
             </Typography>
           </Box>
         </Box>
 
-        <Button
-          sx={{
-            display: "inline-block",
-            padding: "12px 28px",
-            backgroundColor: "var(--green-color)",
-            borderRadius: "5px",
-            color: "var(--bg-color)",
-            fontSize: "1rem",
-            letterSpacing: "1px",
-            fontWeight: 600,
-            transition: "all 0.45s ease",
-            border: "none",
-            outline: "none",
-            ":hover": {
-              background: "var(--light-orange-color)",
-              border: "none",
-              outline: "none",
-              color: "var(--bg-color)",
-              transition: "all 0.45s ease",
-            },
-          }}
-          onClick={(e) => {
-            if (validarFormularioClient()) {
-              // Se o formulário for válido, faça algo aqui
-            } else {
-              // Se houver erros, você pode lidar com isso aqui
-            }
-          }}
-        >
+        <Button sx={buttonStyles} onClick={validarFormularioClient}>
           Insira os Dados
         </Button>
       </Box>
@@ -341,3 +370,5 @@ const InputFields = ({
 };
 
 export default InputFields;
+
+

@@ -6,70 +6,48 @@ import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import StepCards from "../StepCard/stepCadastro";
 import InputFields from "../componente/Inputs/InputFields";
-import MyNewStap from "../componente/staps/mystap";
+import MyNewStep from "../componente/staps/mystap";
 
-const steps = [
-  "Nome da Empresa",
-  "Tempo",
- 
-
-];
+const steps = ["Nome da Empresa", "Tempo"];
 
 export default function RegisterCompany() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
 
+  const [controlStep, setControlStep] = useState({
+    name: "",
+    nameError: "",
+    email: "",
+    emailError: "",
+    password: "",
+    passwordError: "",
+    telefone: "",
+    telefoneError: "",
+  });
 
+  const [error, setError] = useState(true);
 
-  // const [controlStep, setControlStep] = useState({
-  //   name: "",
-  //   nameError: "",
-  //   email: "",
-  //   emailError: "",
-  //   password: "",
-  //   passwordError: "",
-  //   telefone: "",
-  //   telefoneError: ""
-  // });
+  const [controlSteFields, setControlSteFields] = useState({
+    cnpj: "",
+    cnpjError: "",
+    endereco: "",
+    enderecoError: "",
+    horaAbertura: "",
+    horaAberturaError: "",
+    fechamento: "",
+    funcionamentoError: "",
+  });
 
-
-
-  const [name, setName] = useState("");
-  const [nameError, setNameError] = useState("");
-
-  const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState("");
-
-  const [password, setPassword] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-
-  const [telefone, setTelefone] = useState("");
-  const [telefoneError, setTelefoneError] = useState("");
-
-
-  const [cnpj, setCnpj] = useState("");
-  const [cnpjError, setCnpjError] = useState("");
-
-  const [endereco, setEndereco] = useState("");
-  const [enderecoError, setEnderecoError] = useState("");
-
-  const [horaAbertura, setHoraAbertura] = useState("");
-  const [horaAberturaError, setHoraAberturaError] = useState("");
-
-  const [fechamento, setFechamento] = useState("");
-  const [funcionamentoError, setFuncionamentoError] = useState("");
-
-  const [fotoLogotipo, setFotoLogotipo] = useState("");
-  const [fotoLogotipoError, setFotoLogotipoError] = useState("");
-
-  const [formasDePagamento, setFormasDePagamento] = useState("");
-  const [formasDePagamentoError, setFormasDePagamentoError] = useState("");
-
-  const [descricaoEmpresa, setDescricaoEmpresa] = useState("");
-  const [descricaoEmpresaError, setDescricaoEmpresaError] = useState("");
-
-  const [logisticaDeVendas, setLogisticaDeVendas] = useState("");
-  const [logisticaDeVendasError, setLogisticaDeVendasError] = useState("");
+  const [controlMyNewStep, setControlMyNewStep] = useState({
+    fotoLogotipo: "",
+    fotoLogotipoError: "",
+    formasDePagamento: "",
+    formasDePagamentoError: "",
+    descricaoEmpresa: "",
+    descricaoEmpresaError: "",
+    logisticaDeVendas: "",
+    logisticaDeVendasError: "",
+  });
 
   const isStepOptional = (step) => {
     return step === 1;
@@ -80,6 +58,10 @@ export default function RegisterCompany() {
   };
 
   const handleNext = () => {
+    if (!controlStep.name) {
+      alert("Não tem alguma coisa");
+      return;
+    }
     let newSkipped = skipped;
     if (isStepSkipped(activeStep)) {
       newSkipped = new Set(newSkipped.values());
@@ -135,9 +117,7 @@ export default function RegisterCompany() {
           const stepProps = {};
           const labelProps = {};
           if (isStepOptional(index)) {
-            labelProps.optional = (
-              <Typography variant="caption"></Typography>
-            );
+            labelProps.optional = <Typography variant="caption"></Typography>;
           }
           if (isStepSkipped(index)) {
             stepProps.completed = false;
@@ -159,22 +139,9 @@ export default function RegisterCompany() {
           }}
         >
           <StepCards
-            name={name}
-            setName={setName}
-            nameError={nameError}
-            setNameError={setNameError}
-            email={email}
-            setEmail={setEmail}
-            emailError={emailError}
-            setEmailError={setEmailError}
-            password={password}
-            setPassword={setPassword}
-            passwordError={passwordError}
-            setPasswordError={setPasswordError}
-            telefone={telefone}
-            setTelefone={setTelefone}
-            telefoneError={telefoneError}
-            setTelefoneError={setTelefoneError}
+            error={error}
+            controlStep={controlStep}
+            setControlStep={setControlStep}
           />
         </Stack>
       )}
@@ -189,22 +156,9 @@ export default function RegisterCompany() {
           }}
         >
           <InputFields
-            cnpj={cnpj}
-            setCnpj={setCnpj}
-            cnpjError={cnpjError}
-            setCnpjError={setCnpjError}
-            endereco={endereco}
-            setEndereco={setEndereco}
-            enderecoError={enderecoError}
-            setEnderecoError={setEnderecoError}
-            horaAbertura={horaAbertura}
-            setHoraAbertura={setHoraAbertura}
-            horaAberturaError={horaAberturaError}
-            setHoraAberturaError={setHoraAberturaError}
-            fechamento={fechamento}
-            setFechamento={setFechamento}
-            funcionamentoError={funcionamentoError}
-            setFuncionamentoError={setFuncionamentoError}
+            error={error}
+            controlSteFields={controlSteFields}
+            setControlSteFields={setControlSteFields}
           />
         </Stack>
       )}
@@ -218,24 +172,12 @@ export default function RegisterCompany() {
             position: "relative",
           }}
         >
-          <MyNewStap
-            fotoLogotipo={fotoLogotipo}
-            setFotoLogotipo={setFotoLogotipo}
-            fotoLogotipoError={fotoLogotipoError}
-            setFotoLogotipoError={setFotoLogotipoError}
-            formasDePagamento={formasDePagamento}
-            setFormasDePagamento={setFormasDePagamento}
-            formasDePagamentoError={formasDePagamentoError}
-            setFormasDePagamentoError={setFormasDePagamentoError}
-            descricaoEmpresa={descricaoEmpresa}
-            setDescricaoEmpresa={setDescricaoEmpresa}
-            descricaoEmpresaError={descricaoEmpresaError}
-            setDescricaoEmpresaError={setDescricaoEmpresaError}
-            logisticaDeVendas={logisticaDeVendas}
-            setLogisticaDeVendas={setLogisticaDeVendas}
-            logisticaDeVendasError={logisticaDeVendasError}
-            setLogisticaDeVendasError={setLogisticaDeVendasError}
-          />
+          <MyNewStep
+    error={error}
+    controlMyNewStep={controlMyNewStep} // Corrigir o nome da propriedade aqui
+    setControlMyNewStep={setControlMyNewStep}
+/>
+
         </Stack>
       )}
       {activeStep === steps.length ? (
@@ -257,14 +199,17 @@ export default function RegisterCompany() {
               gap: "2rem",
             }}
           >
-            <Typography sx={{ mt: 2,
-               mb: 1,
-               textAlign: "center",
-               fontWeight: "bold",
-               fontSize: "1.2rem",
-               color: "var(--green-color)",
-               fontFamily: "Poppins",
-                }}>
+            <Typography
+              sx={{
+                mt: 2,
+                mb: 1,
+                textAlign: "center",
+                fontWeight: "bold",
+                fontSize: "1.2rem",
+                color: "var(--green-color)",
+                fontFamily: "Poppins",
+              }}
+            >
               {activeStep === 0 && `Primeiro Pasinho ${activeStep + 1}`}
               {activeStep === 1 &&
                 `Você está indo bem, só mais um Passo ${activeStep + 1}`}

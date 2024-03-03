@@ -19,7 +19,6 @@ export const HomeCompany = () => {
           alignItems: "center",
           justifyContent: "center",
           flexDirection: "colunm",
-
           "@media only screen and (max-width: 800px)": {
             width: "100%",
             marginTop: "4rem",
@@ -28,12 +27,8 @@ export const HomeCompany = () => {
         }}
       >
         <RegisterCompany />
-
         <Login />
-
         <PasswordRecovery />
-
-
         <CardCampany/>
 
         <Stack>

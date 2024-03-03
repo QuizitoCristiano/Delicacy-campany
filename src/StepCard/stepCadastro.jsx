@@ -1,25 +1,18 @@
 import "./styles/myModal.css";
-import { Container, Button, Box, Stack, TextField } from "@mui/material";
+import { Button, Box, Stack, TextField } from "@mui/material";
 
-const StepCards = ({
-  name,
-  setName,
-  nameError,
-  setNameError,
-  email,
-  setEmail,
-  emailError,
-  setEmailError,
-  password,
-  setPassword,
-  passwordError,
-  setPasswordError,
-  telefone,
-  setTelefone,
-  telefoneError,
-  setTelefoneError,
-}) => {
- 
+const StepCards = (props) => {
+  const { controlStep, setControlStep } = props;
+  const {
+    name,
+    nameError,
+    email,
+    emailError,
+    password,
+    passwordError,
+    telefone,
+    telefoneError,
+  } = controlStep;
 
   const isValidEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -47,40 +40,61 @@ const StepCards = ({
   const validateForm = () => {
     let isValid = true;
     if (!name.trim()) {
-      setNameError("O campo nome da empresa é obrigatório.");
+      setControlStep((prevState) => ({
+        ...prevState,
+        nameError: "O campo nome da empresa é obrigatório.",
+      }));
       isValid = false;
     } else {
-      setNameError("");
+      setControlStep((prevState) => ({ ...prevState, nameError: "" }));
     }
 
     if (!email.trim()) {
-      setEmailError("O campo e-mail da empresa é obrigatório.");
+      setControlStep((prevState) => ({
+        ...prevState,
+        emailError: "O campo e-mail da empresa é obrigatório.",
+      }));
       isValid = false;
     } else if (!isValidEmail(email)) {
-      setEmailError("Por favor, insira um e-mail válido.");
+      setControlStep((prevState) => ({
+        ...prevState,
+        emailError: "Por favor, insira um e-mail válido.",
+      }));
       isValid = false;
     } else {
-      setEmailError("");
+      setControlStep((prevState) => ({ ...prevState, emailError: "" }));
     }
 
     if (!password.trim()) {
-      setPasswordError("O campo senha é obrigatório.");
+      setControlStep((prevState) => ({
+        ...prevState,
+        passwordError: "O campo senha é obrigatório.",
+      }));
       isValid = false;
     } else if (password.length < 8) {
-      setPasswordError("A senha deve ter pelo menos 8 caracteres.");
+      setControlStep((prevState) => ({
+        ...prevState,
+        passwordError: "A senha deve ter pelo menos 8 caracteres.",
+      }));
       isValid = false;
     } else {
-      setPasswordError("");
+      setControlStep((prevState) => ({ ...prevState, passwordError: "" }));
     }
 
     if (!telefone.trim()) {
-      setTelefoneError("O campo telefone é obrigatório.");
+      setControlStep((prevState) => ({
+        ...prevState,
+        telefoneError: "O campo telefone é obrigatório.",
+      }));
       isValid = false;
     } else if (!isValidPhone(telefone)) {
-      setTelefoneError("Por favor, insira um número de telefone válido.");
+      setControlStep((prevState) => ({
+        ...prevState,
+        telefoneError: "Por favor, insira um número de telefone válido.",
+      }));
       isValid = false;
     } else {
-      setTelefoneError("");
+      setControlStep((prevState) => ({ ...prevState, telefoneError: "" }));
     }
 
     return isValid;
@@ -153,7 +167,12 @@ const StepCards = ({
               variant="outlined"
               size="small"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) =>
+                setControlStep((prevState) => ({
+                  ...prevState,
+                  name: e.target.value,
+                }))
+              }
               error={!!nameError}
               helperText={nameError}
             />
@@ -176,7 +195,12 @@ const StepCards = ({
               variant="outlined"
               size="small"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) =>
+                setControlStep((prevState) => ({
+                  ...prevState,
+                  email: e.target.value,
+                }))
+              }
               error={!!emailError}
               helperText={emailError}
             />
@@ -196,9 +220,8 @@ const StepCards = ({
             },
           }}
         >
-
-          <Box 
-             sx={{
+          <Box
+            sx={{
               width: "100%",
               display: "flex",
               gap: "1.3rem",
@@ -207,22 +230,26 @@ const StepCards = ({
               flexDirection: "column",
             }}
           >
-
-          <TextField
-            sx={{ width: "100%" }}
-            type="password"
-            label="Senha"
-            variant="outlined"
-            size="small"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            error={!!passwordError}
-            helperText={passwordError}
-          />
+            <TextField
+              sx={{ width: "100%" }}
+              type="password"
+              label="Senha"
+              variant="outlined"
+              size="small"
+              value={password}
+              onChange={(e) =>
+                setControlStep((prevState) => ({
+                  ...prevState,
+                  password: e.target.value,
+                }))
+              }
+              error={!!passwordError}
+              helperText={passwordError}
+            />
           </Box>
 
-          <Box 
-             sx={{
+          <Box
+            sx={{
               width: "100%",
               display: "flex",
               gap: "1.3rem",
@@ -231,44 +258,46 @@ const StepCards = ({
               flexDirection: "column",
             }}
           >
-          <TextField
-            sx={{ width: "100%" }}
-            type="text"
-            label="Telefone"
-            variant="outlined"
-            size="small"
-            value={telefone}
-            onChange={(e) => setTelefone(e.target.value)}
-            error={!!telefoneError}
-            helperText={telefoneError}
-          />
+            <TextField
+              sx={{ width: "100%" }}
+              type="text"
+              label="Telefone"
+              variant="outlined"
+              size="small"
+              value={telefone}
+              onChange={(e) =>
+                setControlStep((prevState) => ({
+                  ...prevState,
+                  telefone: e.target.value,
+                }))
+              }
+              error={!!telefoneError}
+              helperText={telefoneError}
+            />
           </Box>
-
         </Stack>
 
         <Button
-      
-            sx={{
-              display: "inline-block",
-              padding: "12px 28px",
-              backgroundColor: "var(--green-color)",
-              borderRadius: "5px",
-              color: "var(--bg-color)",
-              fontSize: "1rem",
-              letterSpacing: "1px",
-              fontWeight: 600,
-              transition: "all 0.45s ease",
+          sx={{
+            display: "inline-block",
+            padding: "12px 28px",
+            backgroundColor: "var(--green-color)",
+            borderRadius: "5px",
+            color: "var(--bg-color)",
+            fontSize: "1rem",
+            letterSpacing: "1px",
+            fontWeight: 600,
+            transition: "all 0.45s ease",
+            border: "none",
+            outline: "none",
+            ":hover": {
+              background: "var(--light-orange-color)",
               border: "none",
               outline: "none",
-              ":hover": {
-                background: "var(--light-orange-color)",
-                border: "none",
-                outline: "none",
-                color: "var(--bg-color)",
-                transition: "all 0.45s ease",
-              },
-          
-           }}
+              color: "var(--bg-color)",
+              transition: "all 0.45s ease",
+            },
+          }}
           type="submit"
           variant="contained"
           color="primary"

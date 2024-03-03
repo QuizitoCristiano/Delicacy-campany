@@ -2,26 +2,23 @@ import React, { useState } from "react";
 import "./styles/indexStyle.css";
 import { Button, Box, Stack, Typography, TextField } from "@mui/material";
 
-const MyNewStap = ({
-  fotoLogotipo,
-  setFotoLogotipo,
-  fotoLogotipoError,
-  setFotoLogotipoError,
-  formasDePagamento,
-  setFormasDePagamento,
-  formasDePagamentoError,
-  setFormasDePagamentoError,
-  descricaoEmpresa,
-  setDescricaoEmpresa,
-  descricaoEmpresaError,
-  setDescricaoEmpresaError,
-  logisticaDeVendas,
-  setLogisticaDeVendas,
-  logisticaDeVendasError,
-  setLogisticaDeVendasError,
-}) => {
+const MyNewStep = (props) => {
   const [modalAberto, setModalAberto] = useState(false);
   const [descricaoModalAberto, setDescricaoModalAberto] = useState(false);
+
+  const { controlMyNewStep, setControlMyNewStep } = props;
+
+  const {
+    fotoLogotipo,
+    fotoLogotipoError,
+    formasDePagamento,
+    formasDePagamentoError,
+    descricaoEmpresa,
+    descricaoEmpresaError,
+    logisticaDeVendas,
+    logisticaDeVendasError,
+    
+  } = controlMyNewStep;
 
   const handleOpenModal = (e) => {
     e.preventDefault();
@@ -52,42 +49,71 @@ const MyNewStap = ({
 
   const handleDescricaoSubmit = () => {
     if (descricaoEmpresa.length < 20) {
-      setDescricaoEmpresaError("A descrição deve ter no mínimo 20 caracteres");
+      setControlMyNewStep((prevState) => ({
+        ...prevState,
+        descricaoEmpresaError: "A descrição deve ter no mínimo 20 caracteres",
+      }));
     } else {
-      setDescricaoEmpresaError("");
+      setControlMyNewStep((prevState) => ({
+        ...prevState,
+        descricaoEmpresaError: "",
+      }));
       handleCloseDescricaoModal();
     }
   };
 
-  const validarFormularioClient = () => {
+  const validarFormulario = () => {
     let isValid = true;
 
     if (logisticaDeVendas.trim() === "") {
-      setLogisticaDeVendasError("Campo de logistica de vendas é obrigatório");
+      setControlMyNewStep((prevState) => ({
+        ...prevState,
+        logisticaDeVendasError: "Campo de logística de vendas é obrigatório",
+      }));
       isValid = false;
     } else {
-      setLogisticaDeVendasError("");
+      setControlMyNewStep((prevState) => ({
+        ...prevState,
+        logisticaDeVendasError: "",
+      }));
     }
 
     if (descricaoEmpresa.trim() === "") {
-      setDescricaoEmpresaError("Campo Descrição da Empresa é obrigatório");
+      setControlMyNewStep((prevState) => ({
+        ...prevState,
+        descricaoEmpresaError: "Campo Descrição da Empresa é obrigatório",
+      }));
       isValid = false;
     } else {
-      setDescricaoEmpresaError("");
+      setControlMyNewStep((prevState) => ({
+        ...prevState,
+        descricaoEmpresaError: "",
+      }));
     }
 
     if (formasDePagamento.trim() === "") {
-      setFormasDePagamentoError("Campo Formas de Pagamento é obrigatório");
+      setControlMyNewStep((prevState) => ({
+        ...prevState,
+        formasDePagamentoError: "Campo Formas de Pagamento é obrigatório",
+      }));
       isValid = false;
     } else {
-      setFormasDePagamentoError("");
+      setControlMyNewStep((prevState) => ({
+        ...prevState,
+        formasDePagamentoError: "",
+      }));
     }
 
     if (fotoLogotipo.trim() === "") {
-      setFotoLogotipoError("Campo Foto/Logotipo da Empresa é obrigatório");
-      isValid = false;
+      setControlMyNewStep((prevState) => ({
+        ...prevState,
+        fotoLogotipoError: "Campo Foto/Logotipo da Empresa é obrigatório",
+      }));
     } else {
-      setFotoLogotipoError("");
+      setControlMyNewStep((prevState) => ({
+        ...prevState,
+        fotoLogotipoError: "",
+      }));
     }
 
     return isValid;
@@ -134,7 +160,6 @@ const MyNewStap = ({
           sx={{
             width: "100%",
             display: "grid",
-
             gridTemplateColumns: "repeat(2, 1fr)",
             gridGap: "10px",
             "@media (max-width: 550px)": {
@@ -143,18 +168,7 @@ const MyNewStap = ({
             },
           }}
         >
-          <Box
-            sx={{
-              width: "100%",
-              display: "flex",
-              gap: "1.3rem",
-              justifyContent: "center",
-              alignItems: "flex-start",
-              flexDirection: "column",
-            }}
-
-           
-          >
+          <Box>
             <TextField
               sx={{
                 width: "100%",
@@ -181,16 +195,7 @@ const MyNewStap = ({
             </Typography>
           </Box>
 
-          <Box
-            sx={{
-              width: "100%",
-              display: "flex",
-              gap: "1.3rem",
-              justifyContent: "center",
-              alignItems: "flex-start",
-              flexDirection: "column",
-            }}
-          >
+          <Box>
             <TextField
               sx={{
                 width: "100%",
@@ -223,7 +228,6 @@ const MyNewStap = ({
           sx={{
             width: "100%",
             display: "grid",
-
             gridTemplateColumns: "repeat(2, 1fr)",
             gridGap: "10px",
             "@media (max-width: 550px)": {
@@ -232,16 +236,7 @@ const MyNewStap = ({
             },
           }}
         >
-          <Box
-            sx={{
-              width: "100%",
-              display: "flex",
-              gap: "1.3rem",
-              justifyContent: "center",
-              alignItems: "flex-start",
-              flexDirection: "column",
-            }}
-          >
+          <Box>
             <TextField
               sx={{
                 width: "100%",
@@ -267,24 +262,7 @@ const MyNewStap = ({
           </Box>
 
           {modalAberto && (
-            <Box
-              sx={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                width: "300px",
-                height: "300px",
-                borderRadius: "8px",
-                backgroundColor: "#fff",
-                boxShadow: "1px 2px 11px 4px rgb(14 55 54 / 60%)",
-                padding: "20px",
-                zIndex: "1000",
-                "@media (max-width: 750px)": {
-                  width: "97%",
-                },
-              }}
-            >
+            <Box>
               <select id="formaPagamento" onChange={handleFormaPagamentoChange}>
                 <option value="">Forma de Pagamento</option>
                 <option value="pix">Pix</option>
@@ -300,16 +278,7 @@ const MyNewStap = ({
             </Box>
           )}
 
-          <Box
-            sx={{
-              width: "100%",
-              display: "flex",
-              gap: "1.3rem",
-              justifyContent: "center",
-              alignItems: "flex-start",
-              flexDirection: "column",
-            }}
-          >
+          <Box>
             <TextField
               sx={{
                 width: "100%",
@@ -338,24 +307,7 @@ const MyNewStap = ({
         </Box>
 
         {descricaoModalAberto && (
-          <Box
-            sx={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              width: "650px",
-              height: "300px",
-              borderRadius: "8px",
-              backgroundColor: "#fff",
-              boxShadow: "1px 2px 11px 4px rgb(14 55 54 / 60%)",
-              padding: "20px",
-              zIndex: "1000",
-              "@media (max-width: 750px)": {
-                width: "97%",
-              },
-            }}
-          >
+          <Box>
             <textarea
               className="myTexteArea"
               value={descricaoEmpresa}
@@ -452,8 +404,8 @@ const MyNewStap = ({
               transition: "all 0.45s ease",
             },
           }}
-          onClick={(e) => {
-            if (validarFormularioClient()) {
+          onClick={() => {
+            if (validarFormulario()) {
               // Se o formulário for válido, faça algo aqui
             } else {
               // Se houver erros, você pode lidar com isso aqui
@@ -467,4 +419,4 @@ const MyNewStap = ({
   );
 };
 
-export default MyNewStap;
+export default MyNewStep;
