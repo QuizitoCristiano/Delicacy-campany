@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { TextField, Typography, Stack, Box, Button } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 
-const PasswordRecovery = () => {
+export const PasswordRecovery = () => {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
 
@@ -185,4 +185,3 @@ const PasswordRecovery = () => {
   );
 };
 
-export default PasswordRecovery;

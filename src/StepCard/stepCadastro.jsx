@@ -1,7 +1,7 @@
 import "./styles/myModal.css";
 import { Button, Box, Stack, TextField } from "@mui/material";
 
-const StepCards = (props) => {
+export const StepCards = (props) => {
   const { controlStep, setControlStep } = props;
   const {
     name,
@@ -310,4 +310,4 @@ const StepCards = (props) => {
   );
 };
 
-export default StepCards;
+

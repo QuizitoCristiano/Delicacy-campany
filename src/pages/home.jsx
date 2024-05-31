@@ -4,7 +4,6 @@ import { TextField, Typography, Stack, Box } from "@mui/material";
 import RegisterCompany from "../cadastroEmpresa/cadastro";
 import { Login } from "../signin/signin";
 import PasswordRecovery from "../recovery/recoverySenha";
-import { CardCampany } from "../cardCampany/campany";
 
 export const HomeCompany = () => {
   return (
@@ -27,9 +26,9 @@ export const HomeCompany = () => {
         }}
       >
         <RegisterCompany />
-        <Login />
+        {/* <Login /> */}
         <PasswordRecovery />
-        <CardCampany/>
+       
 
         <Stack>
           <button className="logoutButton">Sair</button>

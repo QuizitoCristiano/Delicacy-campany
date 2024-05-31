@@ -23,15 +23,17 @@
 }
 
 ::-webkit-scrollbar {
-  width: 0.5rem;
-  height: 20px;
+  width: 0.25rem;
+  height: 10px;
+  overflow: hidden;
 }
 
 ::-webkit-scrollbar-thumb {
-  height: 20px;
-  width: 0.5rem;
+  height: 10px;
+  width: 0.3rem;
   background: var(--green-color);
   border-radius: 5rem;
+  overflow: hidden;
 }
 
 .bx-search {
@@ -39,3 +41,10 @@
   cursor: pointer;
 } 
 
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  overflow: hidden;
+}

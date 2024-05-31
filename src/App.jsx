@@ -1,17 +1,21 @@
-
 import React from "react";
-import "./App.css";
-import { MainLayout } from "./layouts/mylayouts";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider, useAuth } from "./globalsAuthContext/index";
+import { Login } from "./signin/signin";
 import { AppRouters } from "./routes/AppRoutes";
-import { BrowserRouter } from "react-router-dom";
-
+import { MeuCadastro } from "./lib/libcontate";
 function App() {
- 
+  const { user } = useAuth() || {};
 
   return (
-    <BrowserRouter>
-      <AppRouters/>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          {/* <Route path="/" element={<Login />} /> */}
+          <Route path="/" element={<MeuCadastro />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

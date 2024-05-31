@@ -21,7 +21,7 @@
   --light-orange-color: #f75f1d;
   --text-color: #1a2428;
   --bg-color: #fff;
-  overflow-x: hidden !important;
+  /* overflow-x: hidden !important; */
 }
 
 

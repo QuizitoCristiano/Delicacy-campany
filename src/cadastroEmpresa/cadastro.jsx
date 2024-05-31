@@ -4,9 +4,10 @@ import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
-import StepCards from "../StepCard/stepCadastro";
+
 import InputFields from "../componente/Inputs/InputFields";
 import MyNewStep from "../componente/staps/mystap";
+import { StepCards } from "../StepCard/stepCadastro";
 
 const steps = ["Nome da Empresa", "Tempo"];
 
