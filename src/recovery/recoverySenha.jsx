@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TextField, Typography, Stack, Box, Button } from "@mui/material";
+import { TextField, Typography, Stack, Box, Button, Link } from "@mui/material";
 import CloseIcon from '@mui/icons-material/Close';
 
 export const PasswordRecovery = () => {
@@ -177,8 +177,19 @@ export const PasswordRecovery = () => {
               }
             }}
           >
-            Recuperação de Senha
+            Recuperar Senha
           </Button>
+
+          <Link to={"login"}>
+        
+            <Typography
+              sx={{ fontSize: "1.3rem", color: "var(--orange-color)", marginLeft: "1rem" }}
+            >
+              Canselar
+            </Typography>
+       
+          </Link>
+
         </Box>
       </Box>
     </Stack>

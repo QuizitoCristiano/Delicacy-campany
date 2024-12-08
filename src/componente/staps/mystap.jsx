@@ -153,7 +153,7 @@ const MyNewStep = (props) => {
             width: "100%",
           }}
         >
-          <h4>Cadastro sua Empresa</h4>
+          <h4>Cadastre sua Empresa</h4>
         </Stack>
 
         <Box

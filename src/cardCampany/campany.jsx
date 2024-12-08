@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { TextField, Typography, Stack, Box, Button } from "@mui/material";
+import { TextField, Typography, Stack, Box, Button,  } from "@mui/material";
 import { IconButton } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -15,7 +15,7 @@ const MyCardCampanyArray = [
   {
     id: 1,
     nomeDoMotBoy: {
-      nome: "Jonathan ",
+      nome: "Jose ",
       img: MotoBoyIgm,
     },
     nomeroDoPedido: "#030C1A",
@@ -70,6 +70,16 @@ const MyCardCampany = () => {
 
   const [showScrollbar, setShowScrollbar] = useState(false);
   const [newScrollbar, setNewScrollbar] = useState(false);
+
+
+
+  
+    const [activeStack, setActiveStack] = useState('concluidos');
+  
+    const handleClickBotton = (stackType) => {
+      setActiveStack(stackType);
+    };
+  
 
   const handleMouseEnter = () => {
     setShowScrollbar(true);
@@ -232,6 +242,57 @@ const MyCardCampany = () => {
           </Box>
         </Stack>
 
+        <Box sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            color: "ActiveCaption",
+            height: "auto",
+            gap: "0.9rem",
+           
+
+            width: "100%",
+            "@media screen and (max-width:790px)": {
+              flexDirection: "row",
+              width: "100%",
+            },
+          }}>
+
+<Button
+sx={{
+  backgroundColor: "#3cb815",
+  borderRadius: "5px",
+  fontSize: "10px",
+  height: "50px",
+  width: '48%',
+  color: "white",
+  cursor: "pointer",
+  transition: 'background-color 0.3s',
+  '&:hover': { // Corrigido para usar &:hover
+    backgroundColor: "#f75f1d",
+  },
+}} onClick={() => handleClick('andamento')}>Em andamento</Button>
+
+
+
+        <Button 
+     sx={{
+      backgroundColor: "#3cb815",
+      borderRadius: "5px",
+      fontSize: "10px",
+      height: "50px",
+      width: '48%',
+      color: "white",
+      cursor: "pointer",
+      transition: 'background-color 0.3s',
+      '&:hover': { // Corrigido para usar &:hover
+        backgroundColor: "#f75f1d",
+      },
+    }}  onClick={() => handleClick('concluidos')}>Entregas concluídos</Button>
+        
+      </Box>
+
         {filterBoxOpen && (
           <Box
             ref={modalRef}
@@ -319,6 +380,7 @@ const MyCardCampany = () => {
                 paddingBottom: "1.8rem",
 
                 padding: "0.5rem",
+              
                 position: "relative",
                 fontSize: "1.8rem",
                 gap: "0.9rem",

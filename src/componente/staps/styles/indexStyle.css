@@ -18,6 +18,7 @@
     background: #2a2a2a;
     color: #ccc;
     height: 210px;
+    width: 100% !important;
 }
 
 input {
